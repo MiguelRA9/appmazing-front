@@ -8,12 +8,14 @@ import { ContactHomeComponent } from './contact-home/contact-home.component';
 import { MatButtonModule, MatCardModule, MatIconModule, MatTableModule, MatToolbarModule } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
 import { ContactDetailComponent } from './contact-detail/contact-detail.component';
+import { ProductHomeComponent } from './product-home/product-home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ContactHomeComponent,
-    ContactDetailComponent
+    ContactDetailComponent,
+    ProductHomeComponent
   ],
   imports: [
     BrowserModule,
