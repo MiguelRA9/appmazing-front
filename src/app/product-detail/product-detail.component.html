@@ -1,1 +1,24 @@
-<p>product-detail works!</p>
+<mat-card class="card">
+    <mat-card-title>Product details</mat-card-title>
+    <mat-card-content class="card-content">
+        <p>
+            <mat-icon>store</mat-icon> <strong>Name: </strong> Naranjas<!--{{product.name}}-->
+        </p>
+        <p>
+            <mat-icon>equalizer</mat-icon> <strong>Stock: </strong> 160<!--{{product.stock}}-->
+        </p>
+        <p>
+            <mat-icon>euro_symbol</mat-icon> <strong>Price: </strong> 2.35<!--{{product.price}}-->
+        </p>
+        <p>
+            <mat-icon>check_circle_outline</mat-icon> <strong>Active: </strong> True<!--{{product.active}}-->
+        </p>
+        <p>
+            <mat-icon>event</mat-icon> <strong>Date added: </strong> 01/02/2023<!--{{product.date_added}}-->
+        </p>
+        <p>
+            <mat-icon>info</mat-icon> <strong>Category: </strong> Fruit<!--{{product.category.name}}-->
+        </p>
+    </mat-card-content>
+</mat-card>
+
