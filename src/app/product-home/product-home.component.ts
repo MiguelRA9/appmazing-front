@@ -20,4 +20,8 @@ export class ProductHomeComponent implements OnInit {
     })
   }
 
+  openDetailForm(row: any) {
+    this.router.navigate(['/contact', row.id])
+  } //method implemented in product-home (html) which uses the url and row.id as parameters to show the single product which links to those parameters.
+
 }
