@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../products.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-home',
@@ -11,7 +12,7 @@ export class ProductHomeComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'name', 'stock', 'price', 'active', 'date_added', 'category'];
 
-  constructor(private productsService: ProductsService) { }
+  constructor(private productsService: ProductsService, private router: Router) { }
 
   ngOnInit(): void {
     this.productsService.getProducts().subscribe(data => {
