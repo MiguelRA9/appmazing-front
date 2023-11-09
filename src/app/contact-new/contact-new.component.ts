@@ -27,7 +27,7 @@ export class ContactNewComponent implements OnInit {
       phone: this.phone,
       email: this.email
     }
-
+    this.contactsService.newContact(contact);
     this.navigateToHome();
   }
 
