@@ -20,5 +20,12 @@ export class ContactsService {
     const headers = new HttpHeaders().set('Content-type', 'application/json');
     const body = JSON.stringify({id: contact_id});
     return this.http.post(url, body, {headers});
-  } 
+  }
+  
+  newContact(contact: any): void {
+    const url = 'http://localhost:30030/contacts/add';
+    const headers = new HttpHeaders().set('Content-type', 'application/json');
+    const body = contact;
+    this.http.post(url, body, {headers}).subscribe();
+  }
 }
