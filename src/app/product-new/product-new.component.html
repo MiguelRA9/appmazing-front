@@ -4,19 +4,19 @@
         <form (submit)="newProduct()">
             <mat-form-field appearance="outline">
                 <mat-label>Name</mat-label>
-                <input matInput type="text" name="name" [(ngModel)]="name">
+                <input matInput type="text" name="name" [(ngModel)]="product.name">
             </mat-form-field>
             <mat-form-field appearance="outline">
                 <mat-label>Stock</mat-label>
-                <input matInput type="text" name="stock" [(ngModel)]="stock">
+                <input matInput type="text" name="stock" [(ngModel)]="product.stock">
             </mat-form-field>
             <mat-form-field appearance="outline">
                 <mat-label>Price</mat-label>
-                <input matInput type="text" name="price" [(ngModel)]="price">
+                <input matInput type="text" name="price" [(ngModel)]="product.price">
             </mat-form-field>
             <mat-form-field appearance="outline">
                 <mat-label>Active</mat-label>
-                <input matInput type="text" name="active" [(ngModel)]="active">            </mat-form-field>
+                <input matInput type="text" name="active" [(ngModel)]="product.active">            </mat-form-field>
             <mat-form-field>
                 <mat-label>Date</mat-label>
                 <input matInput [matDatepicker]="picker">
@@ -25,10 +25,10 @@
                 <mat-datepicker #picker></mat-datepicker>
                 <!--<input matInput type="text" name="date_added" [(ngModel)]="date_added">-->
             </mat-form-field>
-            <!--<mat-form-field appearance="outline">
+            <mat-form-field appearance="outline">
                 <mat-label>Category</mat-label>
-                <input matInput type="text" name="category" [(ngModel)]="category">
-            </mat-form-field>-->
+                <input matInput type="text" name="category" [(ngModel)]="category.id">
+            </mat-form-field>
 
             <div class="buttons">
                 <button mat-raised-button color="primary" type="submit">
