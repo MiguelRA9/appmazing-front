@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductsService } from '../products.service';
+import { Product } from '../model/Product';
+import { Category } from '../model/Category';
 
 @Component({
   selector: 'app-product-new',
@@ -8,12 +10,8 @@ import { ProductsService } from '../products.service';
   styleUrls: ['./product-new.component.css']
 })
 export class ProductNewComponent implements OnInit {
-  name: string;
-  stock: number;
-  price: number;
-  active: boolean;
-  date_added: string;
-  //category
+ product: Product = new Product();
+ category: Category = new Category();
 
   constructor(private router: Router, private productsService: ProductsService) { }
 
@@ -22,12 +20,12 @@ export class ProductNewComponent implements OnInit {
 
   newProduct() {
     const product = {
-      name: this.name,
-      stock: this.stock,
-      price: this.price,
-      active: this.active,
-      date_added: this.date_added,
-      //category
+      name: this.product.name,
+      stock: this.product.stock,
+      price: this.product.price,
+      active: this.product.active,
+      date_added: this.product.date_added,
+      category: this.category
     }
     this.productsService.newProduct(product);
     this.navigateToHome();
