@@ -14,13 +14,16 @@
                 <mat-label>Price</mat-label>
                 <input matInput type="text" name="price" [(ngModel)]="price">
             </mat-form-field>
-            <!--<mat-form-field appearance="outline">
-                <mat-label>Active</mat-label>
-                <mat-checkbox name="active" [(ngModel)]="active">Active</mat-checkbox>
-            </mat-form-field>-->
             <mat-form-field appearance="outline">
+                <mat-label>Active</mat-label>
+                <input matInput type="text" name="active" [(ngModel)]="active">            </mat-form-field>
+            <mat-form-field>
                 <mat-label>Date</mat-label>
-                <input matInput type="text" name="date_added" [(ngModel)]="date_added">
+                <input matInput [matDatepicker]="picker">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <!--<input matInput type="text" name="date_added" [(ngModel)]="date_added">-->
             </mat-form-field>
             <!--<mat-form-field appearance="outline">
                 <mat-label>Category</mat-label>
