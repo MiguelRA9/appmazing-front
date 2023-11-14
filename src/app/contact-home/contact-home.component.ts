@@ -22,5 +22,9 @@ openDetailForm(row: any){
   this.router.navigate(['/contact', row.id]);
 }
 
-  displayedColumns: string[] = ['id', 'name', 'first_surname', 'second_surname', 'phone', 'email'];
+editContactDetail(contact: any) {
+  this.router.navigate(['/contact/edit', contact])
+}
+
+  displayedColumns: string[] = ['id', 'name', 'first_surname', 'second_surname', 'phone', 'email', 'actions'];
 }
