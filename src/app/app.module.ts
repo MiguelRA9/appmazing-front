@@ -14,6 +14,7 @@ import { ContactNewComponent } from './contact-new/contact-new.component';
 import { FormsModule } from '@angular/forms';
 import { ProductNewComponent } from './product-new/product-new.component';
 import { ContactEditComponent } from './contact-edit/contact-edit.component';
+import { ProductEditComponent } from './product-edit/product-edit.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ContactEditComponent } from './contact-edit/contact-edit.component';
     ProductDetailComponent,
     ContactNewComponent,
     ProductNewComponent,
-    ContactEditComponent
+    ContactEditComponent,
+    ProductEditComponent
   ],
   imports: [
     BrowserModule,
