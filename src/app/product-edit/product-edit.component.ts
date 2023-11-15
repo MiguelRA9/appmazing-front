@@ -12,7 +12,6 @@ import { Category } from '../model/Category';
 })
 export class ProductEditComponent implements OnInit {
   product: Product = new Product();
-  category: Category = new Category();
   categories: []
 
   constructor(private productService: ProductsService, private route: ActivatedRoute, private router: Router, private categoriesService: CategoriesService) { }
@@ -27,14 +26,6 @@ export class ProductEditComponent implements OnInit {
   }
 
   updateProduct() {
-    const product = {
-      name: this.product.name,
-      stock: this.product.stock,
-      price: this.product.price,
-      active: this.product.active,
-      date_added: this.product.date_added,
-      category: this.category
-    }
     this.productService.updateProduct(this.product);
     this.navigateProductDetail();
   }
