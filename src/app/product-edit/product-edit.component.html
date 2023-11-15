@@ -1,7 +1,7 @@
 <mat-card class="card">
     <mat-card-title>Edit product</mat-card-title>
     <mat-card-content class="card-content">
-        <form (submit)="updateProduct">
+        <form (submit)="updateProduct()">
             <mat-form-field appearance="outline">
                 <mat-label>Name</mat-label>
                 <input matInput type="text" name="name" [(ngModel)]="product.name">
