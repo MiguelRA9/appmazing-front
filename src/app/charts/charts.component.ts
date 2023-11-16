@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ContactsService } from '../contacts.service';
 
 @Component({
   selector: 'app-charts',
@@ -6,10 +7,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./charts.component.css']
 })
 export class ChartsComponent implements OnInit {
+  initialLetter = [];
 
-  constructor() { }
+  constructor(private contactService: ContactsService) {}
 
   ngOnInit() {
+    this.contactService.getContacts().subscribe(data =>{
+      this.initialLetter = this.calculateInitialLettersData(data);
+    })
+  }
+
+  calculateInitialLettersData(contacts: any[]): any {
+    return contacts.reduce((result, contact)=>{
+      const initial = contact.first_surname.charAt(0).toUpperCase();
+      if(result.find(item => item.name === initial)){
+        result.find(item => item.name === initial).value++
+      } else {
+        result.push({name: initial, value: 1})
+      }
+      return result;
+    }, [])
   }
 
 }
