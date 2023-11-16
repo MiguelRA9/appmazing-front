@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ContactsService } from '../contacts.service';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material';
+import { ContactDeleteComponent } from '../contact-delete/contact-delete.component';
 
 @Component({
   selector: 'app-contact-home',
@@ -10,7 +12,9 @@ import { Router } from '@angular/router';
 export class ContactHomeComponent implements OnInit{
   contacts: any = []; //Este es el datasource que se conge en el html
 
-  constructor(private contactsService: ContactsService, private router: Router){};
+  displayedColumns: string[] = ['id', 'name', 'first_surname', 'second_surname', 'phone', 'email', 'actions'];
+
+  constructor(private contactsService: ContactsService, private router: Router, public dialog: MatDialog){};
 
   ngOnInit(): void {
       this.contactsService.getContacts().subscribe(data => {
@@ -26,5 +30,7 @@ editContactDetail(contact: any) {
   this.router.navigate(['/contact/edit', contact])
 }
 
-  displayedColumns: string[] = ['id', 'name', 'first_surname', 'second_surname', 'phone', 'email', 'actions'];
+openDeleteDialog(contactId: number): void {
+  this.dialog.open(ContactDeleteComponent, {data: {contactId:contactId}})
+}
 }
