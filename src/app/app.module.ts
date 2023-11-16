@@ -16,6 +16,7 @@ import { ProductNewComponent } from './product-new/product-new.component';
 import { ContactEditComponent } from './contact-edit/contact-edit.component';
 import { ProductEditComponent } from './product-edit/product-edit.component';
 import { DatePipe } from '@angular/common';
+import { ContactDeleteComponent } from './contact-delete/contact-delete.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { DatePipe } from '@angular/common';
     ContactNewComponent,
     ProductNewComponent,
     ContactEditComponent,
-    ProductEditComponent
+    ProductEditComponent,
+    ContactDeleteComponent
   ],
   imports: [
     BrowserModule,
