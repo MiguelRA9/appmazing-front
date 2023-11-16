@@ -19,4 +19,14 @@ export class ContactDeleteComponent implements OnInit {
   ngOnInit() {
   }
 
+  confirm(): void{
+    this.contactService.deleteContact(this.contactId);
+    this.dialogRef.close();
+    this.router.routeReuseStrategy.shouldReuseRoute = function(){
+      return false;
+    }
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate(['/contacts']);
+  }
+
 }
