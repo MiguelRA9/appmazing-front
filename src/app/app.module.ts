@@ -18,6 +18,8 @@ import { ProductEditComponent } from './product-edit/product-edit.component';
 import { DatePipe } from '@angular/common';
 import { ContactDeleteComponent } from './contact-delete/contact-delete.component';
 import { ProductDeleteComponent } from './product-delete/product-delete.component';
+import { ChartsComponent } from './charts/charts.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { ProductDeleteComponent } from './product-delete/product-delete.componen
     ContactEditComponent,
     ProductEditComponent,
     ContactDeleteComponent,
-    ProductDeleteComponent
+    ProductDeleteComponent,
+    ChartsComponent
   ],
   entryComponents: [
     ContactDeleteComponent,
@@ -55,7 +58,8 @@ import { ProductDeleteComponent } from './product-delete/product-delete.componen
     MatDatepickerModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatDialogModule
+    MatDialogModule,
+    NgxChartsModule
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'es-ES' }, DatePipe],
   bootstrap: [AppComponent]
