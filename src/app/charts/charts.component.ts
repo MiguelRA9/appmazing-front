@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ContactsService } from '../contacts.service';
+import { ProductsService } from '../products.service';
 
 @Component({
   selector: 'app-charts',
@@ -8,12 +9,24 @@ import { ContactsService } from '../contacts.service';
 })
 export class ChartsComponent implements OnInit {
   initialLetter = [];
+  contactsByFullName = [];
+  emailExtensions = [];
+  phonePrefixData = [];
+  productsInitialLetter = [];
+  productsPerCategory = [];
 
-  constructor(private contactService: ContactsService) {}
+  constructor(private contactService: ContactsService, private productService: ProductsService) {}
 
   ngOnInit() {
     this.contactService.getContacts().subscribe(data =>{
       this.initialLetter = this.calculateInitialLettersData(data);
+      this.contactsByFullName = this.calculateContactsByFullNameData(data);
+      this.emailExtensions = this.calculateEmailExtensionsData(data);
+      this.phonePrefixData = this.generatePhonePrefixData(data);
+    })
+    this.productService.getProducts().subscribe(data =>{
+      this.productsInitialLetter = this.calculateProductsPerInitialLetter(data)
+      //this.productsPerCategory = this.calculateProductsPerCategory(data)
     })
   }
 
@@ -28,5 +41,93 @@ export class ChartsComponent implements OnInit {
       return result;
     }, [])
   }
+
+  calculateContactsByFullNameData(contacts: any[]): any {
+    let tempContactsByFullName = [{
+      name: 'Contacts',
+      series: []
+    }];
+    contacts.forEach(contact =>{
+      const fullName = contact.name + contact.first_surname + contact.second_surname;
+      const size = fullName.length;
+      const range = `${size - (size % 5)}-${size - (size % 5) + 4} ch.`;
+      let existingRange = tempContactsByFullName[0].series.find(item => item.name === range);
+      if(existingRange){
+        existingRange.value++;
+      } else {
+        tempContactsByFullName[0].series.push({name: range, value: 1});
+      }
+    });
+
+    return tempContactsByFullName.map(entry =>{
+      return{
+        ...entry,
+        series: entry.series.sort((a, b) => Number(a.name.split('-')[0]) - Number(b.name.split('-')[0]))
+      }
+    })
+  }
+
+  calculateEmailExtensionsData(contacts: any[]): any{
+    let emailExtensionsMap = new Map<string, number>();
+
+    contacts.forEach(contact =>{
+      let emailParts = contact.email.split('@');
+      if(emailParts.length == 2){
+        const domain = emailParts[1];
+        const firstDotIndex = domain.indexOf('.');
+        if(firstDotIndex != -1){
+          const extension = domain.substring(firstDotIndex);
+          if(emailExtensionsMap.has(extension)){
+            emailExtensionsMap.set(extension, emailExtensionsMap.get(extension)+1)
+          }else {
+            emailExtensionsMap.set(extension, 1);
+          }
+        }
+      }
+    });
+
+    let emailExtensions = [];
+    emailExtensionsMap.forEach((value, key) =>{
+      emailExtensions.push({name: key, value: value});
+    });
+
+    return emailExtensions;
+  }
+
+  generatePhonePrefixData(contacts: any[]): any {
+    let phonePrefixData = [];
+    let prefixCounts = {};
+    contacts.forEach(contact =>{
+      const phonePrefix = contact.phone.substring(0, 1);
+      if(prefixCounts[phonePrefix]){
+        prefixCounts[phonePrefix]++;
+      }else {
+        prefixCounts[phonePrefix] = 1;
+      }
+    });
+    for(let prefix in prefixCounts){
+      if(prefixCounts.hasOwnProperty(prefix)){
+        phonePrefixData.push({name: prefix, value: prefixCounts[prefix]})
+      }
+    }
+    return phonePrefixData;
+  }
+
+  calculateProductsPerInitialLetter(products: any): any{
+    return products.reduce((result, product) =>{
+      const initial = product.name.charAt(0).toUpperCase();
+      if(result.find(item => item.name === initial)){
+        result.find(item => item.name === initial).value++
+      } else {
+        result.push({name: initial, value: 1})
+      }
+      return result;
+    }, [])
+  }
+
+  calculateProductsPerCategory(products: any[]): any{}
+
+  
+
 
 }
