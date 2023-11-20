@@ -14,6 +14,7 @@ export class ChartsComponent implements OnInit {
   phonePrefixData = [];
   productsInitialLetter = [];
   productsPerCategory = [];
+  productsAvailability = [];
 
   constructor(private contactService: ContactsService, private productService: ProductsService) {}
 
@@ -27,6 +28,7 @@ export class ChartsComponent implements OnInit {
     this.productService.getProducts().subscribe(data =>{
       this.productsInitialLetter = this.calculateProductsPerInitialLetter(data)
       this.productsPerCategory = this.calculateProductsPerCategory(data)
+      this.productsAvailability = this.calculateProductsPerAvailability(data)
     })
   }
 
@@ -137,9 +139,16 @@ export class ChartsComponent implements OnInit {
     }, []);
   }
 
-  calculateNumProductsPerPrice() {
-    //Calcular cuantos productos cuestan menos de 5, entre 5 y 10, y más de 10 euros.
-    const results = []
+  calculateProductsPerAvailability(products: any[]): any {
+  return products.reduce((result, product) => {
+    const availability = product.active;
+    if(result.find(item => item.name === availability)) {
+      result.find(item => item.name === availability).value++
+    } else {
+      result.push({name: availability, value: 1});
+    };
+    return result;
+  }, []);
   }
 
   calculateProductsStockRange() {
