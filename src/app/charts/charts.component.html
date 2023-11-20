@@ -48,15 +48,16 @@
                 </ngx-charts-bar-vertical>
             </div>
             <div>
-                <p><strong>Product per Category</strong></p>
+                <p><strong>Products per Category</strong></p>
+                <ngx-charts-pie-chart [view]="[400, 300]" [results]="productsPerCategory" [labels]="true" [doughnut]="true"></ngx-charts-pie-chart>
             </div>
         </div>
        <div class="chart-row">
             <div>
-                <p><strong>Extensions</strong></p>
+                <p><strong>Products per price</strong></p>
             </div>
             <div>
-                <p><strong>Prefix</strong></p>
+                <p><strong>Product per stock</strong></p>
             </div>
        </div>
     </mat-card-content>
