@@ -49,12 +49,13 @@
             </div>
             <div>
                 <p><strong>Products per Category</strong></p>
-                <ngx-charts-pie-chart [view]="[400, 300]" [results]="productsPerCategory" [labels]="true" [doughnut]="true"></ngx-charts-pie-chart>
+                <ngx-charts-number-card [view]="[400, 300]" [results]="productsPerCategory"></ngx-charts-number-card>
             </div>
         </div>
        <div class="chart-row">
             <div>
-                <p><strong>Products per price</strong></p>
+                <p><strong>Products per Availability</strong></p>
+                <ngx-charts-pie-chart [view]="[400, 300]" [results]="productsAvailability" [labels]="true"></ngx-charts-pie-chart>
             </div>
             <div>
                 <p><strong>Product per stock</strong></p>
