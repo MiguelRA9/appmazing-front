@@ -26,7 +26,7 @@ export class ChartsComponent implements OnInit {
     })
     this.productService.getProducts().subscribe(data =>{
       this.productsInitialLetter = this.calculateProductsPerInitialLetter(data)
-      //this.productsPerCategory = this.calculateProductsPerCategory(data)
+      this.productsPerCategory = this.calculateProductsPerCategory(data)
     })
   }
 
@@ -125,9 +125,25 @@ export class ChartsComponent implements OnInit {
     }, [])
   }
 
-  calculateProductsPerCategory(products: any[]): any{}
+  calculateProductsPerCategory(products: any[]): any{
+    return products.reduce((result, product) => {
+      const category = product.category.name;
+      if(result.find(item => item.name === category)) {
+        result.find(item => item.name === category).value++
+      } else {
+        result.push({name: category, value: 1});
+      }
+      return result;
+    }, []);
+  }
 
-  
+  calculateNumProductsPerPrice() {
+    //Calcular cuantos productos cuestan menos de 5, entre 5 y 10, y más de 10 euros.
+    const results = []
+  }
 
+  calculateProductsStockRange() {
+    //Calcular que productos necesitan reponer stock urgentemente (entre 0 y 50, Low stock), cuantos tienen Medium Stock y cuantos High Stock
+  }
 
 }
