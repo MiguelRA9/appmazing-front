@@ -59,6 +59,10 @@
             </div>
             <div>
                 <p><strong>Product per stock</strong></p>
+                <ngx-charts-line-chart [view]="[400, 300]" [results]="productsStockRange" [xAxis]="true" [yAxis]="true"
+                [legend]="false" [showXAxisLabel]="true" [showYAxisLabel]="true" xAxislabel="Stock ranges"
+                yAxisLabel="Number of products">
+                </ngx-charts-line-chart>
             </div>
        </div>
     </mat-card-content>
