@@ -15,6 +15,7 @@ export class ChartsComponent implements OnInit {
   productsInitialLetter = [];
   productsPerCategory = [];
   productsAvailability = [];
+  productsStockRange = [];
 
   constructor(private contactService: ContactsService, private productService: ProductsService) {}
 
@@ -29,6 +30,7 @@ export class ChartsComponent implements OnInit {
       this.productsInitialLetter = this.calculateProductsPerInitialLetter(data)
       this.productsPerCategory = this.calculateProductsPerCategory(data)
       this.productsAvailability = this.calculateProductsPerAvailability(data)
+      this.productsStockRange = this.calculateProductsStockRange(data)
     })
   }
 
@@ -151,8 +153,40 @@ export class ChartsComponent implements OnInit {
   }, []);
   }
 
-  calculateProductsStockRange() {
+  calculateProductsStockRange(products: any): any {
     //Calcular que productos necesitan reponer stock urgentemente (entre 0 y 50, Low stock), cuantos tienen Medium Stock y cuantos High Stock
+    let tempProductsByStock = [{
+      name: 'Stock',
+      series: []
+    }];
+    products.forEach(product => {
+      const stock = product.stock;
+      const range = this.getStockRange(stock);
+      let existingRange = tempProductsByStock[0].series.find(item => item.name === range);
+      if(existingRange) {
+        existingRange.value++;
+      } else {
+        tempProductsByStock[0].series.push({name: range, value: 1});
+      }
+    });
+    return tempProductsByStock.map(entry => {
+      return {
+        ...entry,
+        series: entry.series.sort((a, b) => a.name.localeCompare(b.name))
+      };
+    });
   }
 
+  getStockRange(stock: number): string {
+    if(stock < 50) {
+      return 'Low stock: resupply';
+    } else if (stock >= 50 && stock <=150) {
+      return 'Medium stock: watch';
+    } else if (stock > 150) {
+      return 'High stock';
+    } else {
+      'Error'
+    }
+  } 
+  
 }
