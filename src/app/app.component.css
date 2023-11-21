@@ -1,0 +1,15 @@
+.footer {
+    padding: 5px;
+    margin-top: 20px;
+    position: relative;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #3f51b5;
+    color: #fff;
+    text-align: center;
+  }
+
+#mailFooter {
+    color: #fff;
+}
