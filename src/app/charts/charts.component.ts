@@ -16,6 +16,7 @@ export class ChartsComponent implements OnInit {
   productsPerCategory = [];
   productsAvailability = [];
   productsStockRange = [];
+  productsPricerange = [];
 
   constructor(private contactService: ContactsService, private productService: ProductsService) {}
 
@@ -27,10 +28,11 @@ export class ChartsComponent implements OnInit {
       this.phonePrefixData = this.generatePhonePrefixData(data);
     })
     this.productService.getProducts().subscribe(data =>{
-      this.productsInitialLetter = this.calculateProductsPerInitialLetter(data)
-      this.productsPerCategory = this.calculateProductsPerCategory(data)
-      this.productsAvailability = this.calculateProductsPerAvailability(data)
-      this.productsStockRange = this.calculateProductsStockRange(data)
+      this.productsInitialLetter = this.calculateProductsPerInitialLetter(data);
+      this.productsPerCategory = this.calculateProductsPerCategory(data);
+      this.productsAvailability = this.calculateProductsPerAvailability(data);
+      this.productsStockRange = this.calculateProductsStockRange(data);
+      this.productsPricerange = this.calculateProductsPriceRange(data);
     })
   }
 
@@ -143,7 +145,12 @@ export class ChartsComponent implements OnInit {
 
   calculateProductsPerAvailability(products: any[]): any {
   return products.reduce((result, product) => {
-    const availability = product.active;
+    let availability = "";
+    if(product.active) {
+      availability = "Available"
+    } else {
+      availability = "Not available"
+    }
     if(result.find(item => item.name === availability)) {
       result.find(item => item.name === availability).value++
     } else {
@@ -172,21 +179,57 @@ export class ChartsComponent implements OnInit {
     return tempProductsByStock.map(entry => {
       return {
         ...entry,
-        series: entry.series.sort((a, b) => a.name.localeCompare(b.name))
+        series: entry.series.sort((a, b) => (a.name > b.name)? 1: -1)
       };
     });
   }
 
   getStockRange(stock: number): string {
     if(stock < 50) {
-      return 'Low stock: resupply';
+      return '1. Low stock: resupply';
     } else if (stock >= 50 && stock <=150) {
-      return 'Medium stock: watch';
+      return '2. Medium stock: watch';
     } else if (stock > 150) {
-      return 'High stock';
+      return '3. High stock';
     } else {
       'Error'
     }
   } 
+
+  calculateProductsPriceRange(products: any): any {
+    //Calcular que productos cuestan menos de 5 euros, entre 5 y 10, y más de 10 euros
+    let tempProductsByPrice = [{
+      name: 'Price',
+      series: []
+    }];
+    products.forEach(product => {
+      const price = product.price;
+      const range = this.getPriceRange(price);
+      let existingRange = tempProductsByPrice[0].series.find(item => item.name === range);
+      if(existingRange) {
+        existingRange.value++;
+      } else {
+        tempProductsByPrice[0].series.push({name: range, value: 1});
+      }
+    });
+    return tempProductsByPrice.map(entry => {
+      return {
+        ...entry,
+        series: entry.series.sort((a, b) => a.name.localeCompare(b.name))
+      };
+    });
+  }
+
+  getPriceRange(price: number): string {
+    if(price < 5) {
+      return '1. Less than 5€';
+    } else if (price >= 5 && price <=10) {
+      return '2. Between 5€ and 10€';
+    } else if (price > 10) {
+      return '3. More than 10€';
+    } else {
+      'Error'
+    }
+  }
   
 }
