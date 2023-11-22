@@ -3,6 +3,8 @@ table {
     width: calc(100% - 80px);
 }
 
-#new-contact{
-    margin: 20px, 0px, 40px, 40px;
+#new-product{
+    margin: 20px, 20px, 40px, 40px;
+    background-color: #24a148;
+    color: #fff;
 }
