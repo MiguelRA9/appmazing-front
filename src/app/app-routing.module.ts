@@ -9,6 +9,7 @@ import { ProductNewComponent } from './product-new/product-new.component';
 import { ContactEditComponent } from './contact-edit/contact-edit.component';
 import { ProductEditComponent } from './product-edit/product-edit.component';
 import { ChartsComponent } from './charts/charts.component';
+import { CategoryHomeComponent } from './category-home/category-home.component';
 
 
 const routes: Routes = [
@@ -20,7 +21,8 @@ const routes: Routes = [
   {path: 'product/new', component: ProductNewComponent},
   {path: 'product/:id', component: ProductDetailComponent},
   {path: 'contact/edit/:id', component: ContactEditComponent},
-  {path: 'product/edit/:id', component: ProductEditComponent}
+  {path: 'product/edit/:id', component: ProductEditComponent},
+  {path: 'categories', component: CategoryHomeComponent}
 ];
 
 @NgModule({
