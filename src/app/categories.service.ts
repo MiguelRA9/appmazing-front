@@ -14,4 +14,25 @@ export class CategoriesService {
     const headers = new HttpHeaders();
     return this.http.get<any>(url, {headers});
   }
+
+  getCategory(category_id: number): Observable<any>{
+    const url = 'http://localhost:30030/categories/get';
+    const headers = new HttpHeaders().set('Content-type', 'application/json');
+    const body = JSON.stringify({id: category_id});
+    return this.http.post(url, body, {headers});
+  }
+
+  newCategory(category: any): void {
+    const url = 'http://localhost:30030/categories/add';
+    const headers = new HttpHeaders().set('Content-type', 'application/json');
+    const body = category;
+    this.http.post(url, body, {headers}).subscribe();
+  }
+
+  updateCategory(category: any): void {
+    const url = 'http://localhost:30030/categories/update';
+    const headers = new HttpHeaders().set('Content-type', 'application/json');
+    const body = category;
+    this.http.put(url, body, {headers}).subscribe();
+  }
 }
