@@ -11,7 +11,7 @@ import { MatDialog } from '@angular/material';
 export class CategoryHomeComponent implements OnInit {
   categories: any = [];
 
-  displayedColumns: string[] = ['id', 'name']
+  displayedColumns: string[] = ['id', 'name', 'actions']
 
   constructor(private categoriesService: CategoriesService, private router: Router, public dialog: MatDialog) { };
 
